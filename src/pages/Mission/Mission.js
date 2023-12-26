@@ -1,4 +1,5 @@
-import { LuRefreshCcw } from "react-icons/lu";
+// import { LuRefreshCcw } from "react-icons/lu";
+import { useState } from "react";
 
 function Mission() {
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
@@ -16,7 +17,7 @@ function Mission() {
       <div className="mission-container">{message}</div>
       <div className="change-container">
         <button onClick={changeMessage} className="changeButton">
-          <LuRefreshCcw />
+          {/* <LuRefreshCcw /> */}
         </button>
         새로운 미션
       </div>
@@ -33,3 +34,5 @@ function Header() {
     </header>
   );
 }
+
+export default Mission;

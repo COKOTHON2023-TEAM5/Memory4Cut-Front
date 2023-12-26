@@ -1,9 +1,14 @@
 import { useState } from "react";
 import "./MissionImagesStyle.css";
+import "../../App.css";
+import photoForNav from "../../imgSrc/photoForNav.png";
+import defaultImage from "./imgSrc/defaultImage.png";
 
 const MissionImagesUpload = () => {
+  const MAX_IMAGES = 4;
   const [uploadImgUrls, setUploadImgUrls] = useState([]);
-  const mission = "미션에 대한 사진 4장을 업로드해 주세요";
+  for (let i = 0; i < MAX_IMAGES; i += 1) {}
+  const mission = "추억네컷";
 
   const onChangeImageUpload = (e) => {
     const { files } = e.target;
@@ -36,8 +41,9 @@ const MissionImagesUpload = () => {
 
   return (
     <div>
-      <div>
-        <h1>{mission}</h1>
+      <div className="nav">
+        <h1 style={{ fontFamily: "Gowun Batang" }}>추억네컷</h1>
+        <img src={photoForNav} />
       </div>
       <div className="image-grid">
         {uploadImgUrls.map((url, index) => (
@@ -56,7 +62,6 @@ const MissionImagesUpload = () => {
           </div>
         ))}
       </div>
-      <hr></hr>
       <input
         type="file"
         multiple
