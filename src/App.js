@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import GroupGenerator from './pages/GroupGenerator';
+import Home from './pages/home/Home';
+import GroupGenerator from './pages/groupGenrator/GroupGenerator';
 
 function App() {
   return (
