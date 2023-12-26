@@ -20,7 +20,7 @@ const GroupGenerator = () => {
           });
       };
     function submit(){
-        if(text != "") {
+        if(text != "" && text.length < 10) {
             axios.post('https://www.cokothon-team5.p-e.kr/group', {
                 "group_name": text,
                 "invite_code": data

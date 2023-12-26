@@ -1,58 +1,75 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import { LuRefreshCcw } from "react-icons/lu";
+import axios from "axios";
 
 function Mission() {
+  const [data, setData] = useState(null);
   const [missionContent, setMissionContent] = useState("");
-  const [missionStatus, setMissionStatus] = useState("");
+  const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
+  const [message, setMessage] = useState("미공개 미션");
 
-  useEffect(() => {
-    fetchTodayMission();
-  }, []);
-
-  const fetchTodayMission = async () => {
-    try {
-      const groupID = 2;
-      const response = await fetch(
-        `https://www.cokothon-team5.p-e.kr/group/${groupID}/mission`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const body = await response.json();
-      console.log(body);
-      alert(body.date);
-      console.log(body);
-
-      setMissionContent(response.data.mission);
-      setMissionStatus(response.data.status);
-    } catch (error) {
-      console.error("오늘의 미션 조회 실패:", error);
-      if (error.response) {
-        console.log("server response: ", error.response.data);
-      }
-    }
-  };
+  const numbers = [1, 2, 3, 4];
+  const [number, setNumber] = useState(0);
 
   const periods1 = ["과거", "현재", "미래"];
   const [period1, setPeriod1] = useState("");
 
   const periods2 = ["과거", "현재", "미래"];
   const [period2, setPeriod2] = useState("");
+  const longData = {
+    longValue: 1,
+  };
+  const groupID = 2;
+
+  useEffect(() => {
+    loadMission();
+  }, []);
+
+  const loadMission = async () => {
+    axios
+      .patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission`)
+      .then(function (response) {
+        setData(response.data);
+        setMissionContent(data.data.mission_content);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const changeMessage = async () => {
+    // const randomIndex = Math.floor(Math.random() * messages.length);
+    // setMessage(messages[randomIndex]);
+    // changePeriod();
+    axios
+      .patch(
+        `https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`
+      )
+      .then(function (response) {
+        setData(response.data);
+        console.log("dataaaaaaaa:", data.data.mission_content);
+        setMissionContent(data.data.mission_content);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const handlePeriodChange = (newPeriod) => {
     setPeriod1(newPeriod);
+  };
+
+  const changePeriod = () => {
+    const randomIndex = Math.floor(Math.random() * periods2.length);
+    setPeriod2(periods2[randomIndex]);
   };
 
   return (
     <div>
       <div className="nav">
         <h1 style={{ fontFamily: "Gowun Batang" }}>추억네컷</h1>
-        <img src={photoForNav} alt="Navigation" />
+        <img src={photoForNav} />
       </div>
       <div className="center-container">
         <div style={{ width: "71%", marginTop: "100px" }}>
@@ -74,7 +91,7 @@ function Mission() {
             #{period1}
           </span>
         </div>
-        <div className="mission-container">{missionContent}</div>
+        <span className="mission-container">{missionContent}</span>
         <div
           style={{
             display: "flex",
@@ -89,24 +106,22 @@ function Mission() {
           <div className="percentbar_out">
             <div
               className="percentbar_in"
-              style={{ width: `${25 * parseInt(missionStatus, 10)}%` }}
+              style={{ width: `${25 * number}%` }}
             ></div>
           </div>
-          ({missionStatus}/4)
-          {parseInt(missionStatus, 10) === 0 && (
+          ({number}/4)
+          {number === 0 && (
             <div className="change-container">
-              <button className="changeButton">
+              <button onClick={changeMessage} className="changeButton">
                 <LuRefreshCcw />
               </button>
               새로운 미션
             </div>
           )}
-          {parseInt(missionStatus, 10) !== 0 && (
-            <div className="change-container"></div>
-          )}
+          {number !== 0 && <div className="change-container"></div>}
         </div>
         <div className="hashtag">#{period2}</div>
-        <h2 className="waiting-container">{missionContent}</h2>
+        <h2 className="waiting-container">{message}</h2>
       </div>
     </div>
   );

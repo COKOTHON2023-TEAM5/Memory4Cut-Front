@@ -5,43 +5,29 @@ import "./Home.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import fourCutForBody from "./imgSrc/fourCutForBody.png";
 import axios from "axios";
-
 const Home = () => {
   const goPage = useNavigate();
+  const moveNextPage = () => {
+    goPage("/Mission");
+  };
   const [modalOpen, setModalOpen] = useState(false);
+  const requestData = { invite_code: "OIGQ-QQFMDr" };
+  const headerString = { "Content-Type": "application/json" };
   const isThere = () => {
     //db 비교
+    axios
+      .post("https://www.cokothon-team5.p-e.kr/group/join", {
+        invite_code: "OIGQ-QQFMDr",
+      })
+      .then((response) => {
+        return true;
+      })
+      .catch((error) => {
+        return false;
+      });
+
     return true;
   };
-
-  const sendData = async () => {
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    try {
-      const response = await fetch(
-        "https://www.cokothon-team5.p-e.kr/group/join",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: { invite_code: "OIGQ-QQFMDr" },
-        }
-      );
-      const body = await response.json();
-      alert(body.date);
-      console.log(body);
-    } catch (error) {
-      console.log(error);
-      if (error.data) {
-        console.log("11111", error.data);
-      }
-    }
-  };
-
-  sendData();
-
   return (
     <div className="Home">
       <div className="nav">
@@ -64,10 +50,10 @@ const Home = () => {
             style={{ fontFamily: "Gowun Batang" }}
             id="JoinGroupButton"
             onClick={() => {
-              if (!isThere) {
+              if (!isThere()) {
                 setModalOpen(true);
               } else {
-                //같은 초대코드 존재할 때
+                moveNextPage();
               }
             }}
           >
@@ -102,20 +88,6 @@ const Home = () => {
           </div>
         </Modal>
       </div>
-      {/* 아래는 팝업창 화면 */}
-      <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
-        <div className="ModalBody">
-          <h2>존재하지 않는 초대 코드 입니다.</h2>
-          <button
-            onClick={() => {
-              setModalOpen(false);
-            }}
-            style={{ marginTop: "70px" }}
-          >
-            확인
-          </button>
-        </div>
-      </Modal>
     </div>
   );
 };
