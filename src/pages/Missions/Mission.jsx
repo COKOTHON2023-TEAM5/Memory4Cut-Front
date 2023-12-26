@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import { LuRefreshCcw } from "react-icons/lu";
+import axios from "axios";
 
 function Mission() {
-  const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
-  const [message, setMessage] = useState("미공개 미션");
+  const [missionContent, setMissionContent] = useState("");
+  const [missionStatus, setMissionStatus] = useState("");
 
-  const numbers = [1, 2, 3, 4];
-  const [number, setNumber] = useState(0);
+  useEffect(() => {
+    fetchTodayMission();
+  }, []);
+
+  const fetchTodayMission = async () => {
+    try {
+      const groupID = 1;
+      const response = await axios.patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`);
+      setMissionContent(response.data.mission);
+      setMissionStatus(response.data.status);
+    } catch (error) {
+      console.error("오늘의 미션 조회 실패:", error);
+    }
+  };
 
   const periods1 = ["과거", "현재", "미래"];
   const [period1, setPeriod1] = useState("");
@@ -16,26 +29,15 @@ function Mission() {
   const periods2 = ["과거", "현재", "미래"];
   const [period2, setPeriod2] = useState("");
 
-  const changeMessage = () => {
-    const randomIndex = Math.floor(Math.random() * messages.length);
-    setMessage(messages[randomIndex]);
-    changePeriod();
-  };
-
   const handlePeriodChange = (newPeriod) => {
     setPeriod1(newPeriod);
-  };
-
-  const changePeriod = () => {
-    const randomIndex = Math.floor(Math.random() * periods2.length);
-    setPeriod2(periods2[randomIndex]);
   };
 
   return (
     <div>
       <div className="nav">
         <h1 style={{ fontFamily: "Gowun Batang" }}>추억네컷</h1>
-        <img src={photoForNav} />
+        <img src={photoForNav} alt="Navigation" />
       </div>
       <div className="center-container">
         <div style={{ width: "71%", marginTop: "100px" }}>
@@ -53,25 +55,25 @@ function Mission() {
           </button>
           <span style={{ fontSize: "x-large", fontWeight: "bold", float: "right" }}>#{period1}</span>
         </div>
-        <span className="mission-container">Mission</span>
+        <div className="mission-container">{missionContent}</div>
         <div style={{ display: "flex", alignItems: "center", float: "right", width: "71%", justifyContent: "end", marginBottom: "60px" }}>
           인증 현황{" "}
           <div className="percentbar_out">
-            <div className="percentbar_in" style={{ width: `${25 * number}%` }}></div>
+            <div className="percentbar_in" style={{ width: `${25 * parseInt(missionStatus, 10)}%` }}></div>
           </div>
-          ({number}/4)
-          {number === 0 && (
+          ({missionStatus}/4)
+          {parseInt(missionStatus, 10) === 0 && (
             <div className="change-container">
-              <button onClick={changeMessage} className="changeButton">
+              <button className="changeButton">
                 <LuRefreshCcw />
               </button>
               새로운 미션
             </div>
           )}
-          {number !== 0 && <div className="change-container"></div>}
+          {parseInt(missionStatus, 10) !== 0 && <div className="change-container"></div>}
         </div>
         <div className="hashtag">#{period2}</div>
-        <h2 className="waiting-container">{message}</h2>
+        <h2 className="waiting-container">{missionContent}</h2>
       </div>
     </div>
   );
