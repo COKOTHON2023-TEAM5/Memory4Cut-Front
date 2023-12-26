@@ -41,20 +41,6 @@
   height: 100vh;
 }
 
-.Header {
-  width: 100%;
-  background-color: #b0a2c8;
-  margin-top: 0;
-  margin-bottom: 50px;
-  height: 150px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Georgia", serif;
-}
-
 .changeButton {
   border: none;
   background-color: white;

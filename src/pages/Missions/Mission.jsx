@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { LuRefreshCcw } from "react-icons/lu";
 import "./Mission.css";
+import photoForNav from "./imgSrc/photoForNav.png";
 
 function Mission() {
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
@@ -14,7 +14,10 @@ function Mission() {
 
   return (
     <div>
-      <Header />
+      <div className="nav">
+        <h1 style={{ fontFamily: "Gowun Batang" }}>추억네컷</h1>
+        <img src={photoForNav} />
+      </div>
       <div className="center-container">
         <div className="question">어떤 미션을 수행하시겠습니까?</div>
         <div className="mission-container">{message}</div>
@@ -27,15 +30,6 @@ function Mission() {
         <div className="waiting-container">다른 미션</div>
       </div>
     </div>
-  );
-}
-
-function Header() {
-  return (
-    <header>
-      <h1 className="Header">추억네컷</h1>
-      <div className="HeaderImage"></div>
-    </header>
   );
 }
 
