@@ -1,0 +1,20 @@
+.nav{
+    display: flex;
+    justify-content: center;
+    background-color: #786CA6;
+    background-color: rgba(120, 108, 166, 0.55);
+    height: 250%;
+    align-items: center;
+}
+.nav h1{font-size: 40px;}
+.nav img{margin-left: 10px; width: 50px;}
+.bodyClass{
+    display: flex;
+}
+button{
+    font-size: 20px;
+    height: 40px;
+}
+input{height: 30px; width: 250px;}
+.bodyRight img{margin-left: 70px; width: 580px; height: 530px; margin-top: 10px;}
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
