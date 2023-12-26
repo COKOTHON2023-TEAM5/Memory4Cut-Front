@@ -4,11 +4,27 @@ import { useState } from "react";
 import './Home.css';
 import photoForNav from './imgSrc/photoForNav.png';
 import fourCutForBody from './imgSrc/fourCutForBody.png';
+import axios from "axios";
 const Home = () => {
     const goPage = useNavigate();
+    const moveNextPage = () => {
+        goPage('/Mission')
+    }
     const[modalOpen, setModalOpen] = useState(false);
+    const requestData = {"invite_code": "OIGQ-QQFMDr"}
+    const headerString = {"Content-Type": "application/json"}
     const isThere = () => {
         //db 비교
+        axios.post("https://www.cokothon-team5.p-e.kr/group/join", {
+            "invite_code": "OIGQ-QQFMDr"
+        })
+        .then(response =>{
+            return true;
+        })
+        .catch(error => {
+            return false;
+        });
+
         return true;
     }
     return <div className="Home">
@@ -23,10 +39,10 @@ const Home = () => {
                     <input placeholder="입장할 그룹의 초대코드를 입력해주세요." style={{margin: "20px"}}/>
                 </div>
                 <button style={{fontFamily: "Gowun Batang"}} id="JoinGroupButton" onClick={() => {
-                    if(!isThere){
+                    if(!isThere()){
                         setModalOpen(true);
                     } else{
-                        //같은 초대코드 존재할 때
+                        moveNextPage();
                     }
                 }}>그룹 참여하기</button>
                 <p/>
