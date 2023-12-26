@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import GroupGenerator from "./pages/groupGenrator/GroupGenerator";
 import MissionImagesUpload from "./pages/MissionImagesUpload/MissionImagesUpload";
 import Mission from "./pages/Missions/Mission";
+import ImageUploadPopup from "./pages/MissionImagesUpload/ImageUploadPopup";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             path="/MissionImagesUpload"
             Component={MissionImagesUpload}
           ></Route>
+          <Route path="/ImageUploadPopup" Component={ImageUploadPopup}></Route>
           <Route path="/Mission" Component={Mission}></Route>
         </Routes>
       </BrowserRouter>

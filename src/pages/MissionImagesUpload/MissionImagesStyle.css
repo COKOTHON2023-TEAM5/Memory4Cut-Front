@@ -1,3 +1,24 @@
+.mission-container {
+  display: flex;
+  background-color: lightgray;
+  width: 70%;
+  height: 100px;
+  margin: 30px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
 .image-grid {
   display: flex;
   flex-wrap: wrap;

@@ -1,42 +1,32 @@
-import { useState } from "react";
-import "./MissionImagesStyle.css";
-import "../../App.css";
+import React, { useState, useEffect } from "react";
 import photoForNav from "../../imgSrc/photoForNav.png";
-import defaultImage from "./imgSrc/defaultImage.png";
+import "../../App.css";
 
-const MissionImagesUpload = () => {
-  const MAX_IMAGES = 4;
-  const [uploadImgUrls, setUploadImgUrls] = useState([]);
-  for (let i = 0; i < MAX_IMAGES; i += 1) {}
-  const mission = "추억네컷";
+const MissionImageUpload = () => {
+  const [previewImage, setPreviewImage] = useState(null);
+  const [previewName, setPreviewName] = useState("");
 
-  const onChangeImageUpload = (e) => {
-    const { files } = e.target;
-    const newImgUrls = [];
+  useEffect(() => {
+    // 메시지 이벤트 리스너 등록
+    window.addEventListener("message", handleMessage);
 
-    for (let i = 0; i < files.length; i++) {
-      const uploadFile = files[i];
-      const reader = new FileReader();
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
-      reader.onloadend = () => {
-        newImgUrls.push(reader.result);
-
-        if (i === files.length - 1) {
-          setUploadImgUrls(newImgUrls);
-        }
-      };
-
-      reader.readAsDataURL(uploadFile);
+  const handleMessage = (event) => {
+    if (event.data.type === "IMAGE_CONFIRM") {
+      // 전달받은 이미지로 미리보기 설정
+      setPreviewImage(event.data.data);
+      setPreviewName(event.data.additionalData);
     }
   };
 
-  const onRemoveImage = (index) => {
-    const updatedImgUrls = uploadImgUrls.filter((_, i) => i !== index);
-    setUploadImgUrls(updatedImgUrls);
-  };
-
-  const onClick = () => {
-    console.log("업로드된 이미지 개수:", uploadImgUrls.length);
+  const openPopup = () => {
+    // 팝업 열기
+    window.open("/ImageUploadPopup", "_blank", "width=800,height=800");
   };
 
   return (
@@ -45,34 +35,23 @@ const MissionImagesUpload = () => {
         <h1 style={{ fontFamily: "Gowun Batang" }}>추억네컷</h1>
         <img src={photoForNav} />
       </div>
-      <div className="image-grid">
-        {uploadImgUrls.map((url, index) => (
-          <div key={index} className="image-container">
-            <img
-              src={url}
-              alt={`uploaded-${index}`}
-              className="fixed-size-image"
-            />
-            <button
-              className="remove-button"
-              onClick={() => onRemoveImage(index)}
-            >
-              X
-            </button>
+
+      <div className="center-container" style={{ marginTop: "20px" }}>
+        <div className="mission-container">Mission: ....</div>
+        <div style={{ marginTop: "10px" }}>
+          <button style={{ fontFamily: "Gowun Batang" }} onClick={openPopup}>
+            이미지 업로드
+          </button>
+        </div>
+        {previewImage && (
+          <div style={{ marginTop: "15px" }}>
+            <img src={previewImage} alt="Preview" />
+            <h3 style={{ textAlign: "center" }}>{previewName}</h3>
           </div>
-        ))}
-      </div>
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        onChange={onChangeImageUpload}
-      />
-      <div>
-        <button onClick={onClick}>업로드 완료</button>
+        )}
       </div>
     </div>
   );
 };
 
-export default MissionImagesUpload;
+export default MissionImageUpload;
