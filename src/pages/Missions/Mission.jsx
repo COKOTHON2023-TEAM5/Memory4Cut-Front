@@ -3,6 +3,8 @@ import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import { LuRefreshCcw } from "react-icons/lu";
 import axios from "axios";
+import MissionImageUpload from "../MissionImagesUpload/MissionImagesUpload";
+import { useNavigate } from "react-router";
 
 function Mission() {
   const [data, setData] = useState(null);
@@ -26,6 +28,7 @@ function Mission() {
   useEffect(() => {
     loadMission();
   }, []);
+  const movePage = useNavigate();
 
   const loadMission = async () => {
     axios
@@ -120,8 +123,11 @@ function Mission() {
           )}
           {number !== 0 && <div className="change-container"></div>}
         </div>
-        <div className="hashtag">#{period2}</div>
-        <h2 className="waiting-container">{message}</h2>
+        <button onClick={() => {
+          movePage("/MissionImagesUpload?missionName=" + missionContent);
+        }}>미션 시작</button>
+        {/* <div className="hashtag">#{period2}</div> */}
+        {/* <h2 className="waiting-container">{message}</h2> */}
       </div>
     </div>
   );
