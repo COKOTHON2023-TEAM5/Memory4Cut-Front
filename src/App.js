@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import GroupGenerator from "./pages/groupGenrator/GroupGenerator";
 import MissionImagesUpload from "./pages/MissionImagesUpload/MissionImagesUpload";
-import Mission from "./pages/Mission/Mission";
+import Mission from "./pages/Missions/Mission";
 
 function App() {
   return (
