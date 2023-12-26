@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
+import { LuRefreshCcw } from "react-icons/lu";
 
 function Mission() {
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
@@ -23,7 +24,7 @@ function Mission() {
         <div className="mission-container">{message}</div>
         <div className="change-container">
           <button onClick={changeMessage} className="changeButton">
-            .
+            <LuRefreshCcw />
           </button>
           새로운 미션
         </div>
