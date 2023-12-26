@@ -1,0 +1,26 @@
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* 사진 간의 간격 조절 */
+}
+
+.image-container {
+  position: relative;
+}
+
+.fixed-size-image {
+  width: 100px; /* 원하는 크기로 조절 */
+  height: 100px; /* 원하는 크기로 조절 */
+  object-fit: cover; /* 이미지를 올바른 비율로 유지하면서 자르기 */
+}
+
+.remove-button {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background: white;
+  border-radius: 90%;
+  font-size: 16px;
+  cursor: pointer;
+  color: red;
+}
