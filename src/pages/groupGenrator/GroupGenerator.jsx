@@ -21,6 +21,16 @@ const GroupGenerator = () => {
       };
     function submit(){
         if(text != "") {
+            axios.post('https://www.cokothon-team5.p-e.kr/group', {
+                "group_name": text,
+                "invite_code": data
+            })
+            .then(function (response) {
+                console.log(response);
+              })
+            .catch(function (error) {
+                console.log(error);
+            });
             setIsComplete(true);
         }
     }
