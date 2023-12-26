@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
+.GroupName, .InvitationCode{display: flex; align-items: center;}
+input{margin-left: 10px;}
+.body_left{display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 70px; font-size: 25px; margin-left: 190px;}
+button{width: 250px;}
