@@ -7,6 +7,10 @@ import fourCutForBody from './imgSrc/fourCutForBody.png';
 const Home = () => {
     const goPage = useNavigate();
     const[modalOpen, setModalOpen] = useState(false);
+    const isThere = () => {
+        //db 비교
+        return true;
+    }
     return <div className="Home">
         <div className="nav">
             <h1 style={{fontFamily: "Gowun Batang"}}>추억네컷</h1>
@@ -19,9 +23,11 @@ const Home = () => {
                     <input placeholder="입장할 그룹의 초대코드를 입력해주세요." style={{margin: "20px"}}/>
                 </div>
                 <button style={{fontFamily: "Gowun Batang"}} id="JoinGroupButton" onClick={() => {
-                    //TODO: db비교
-                    setModalOpen(true);
-                    // goPage("/JoinGroup");
+                    if(!isThere){
+                        setModalOpen(true);
+                    } else{
+                        //같은 초대코드 존재할 때
+                    }
                 }}>그룹 참여하기</button>
                 <p/>
                 <button style={{fontFamily: "Gowun Batang"}} id="GroupGeneratorButton" onClick={() => {
