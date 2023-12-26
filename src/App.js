@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import GroupGenerator from "./pages/groupGenrator/GroupGenerator";
 import MissionImagesUpload from "./pages/MissionImagesUpload/MissionImagesUpload";
 import Mission from "./pages/Missions/Mission";
+import ResultForm from "./pages/resultForm/ResultForm";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             Component={MissionImagesUpload}
           ></Route>
           <Route path="/Mission" Component={Mission}></Route>
+          <Route path="/Result" Component={ResultForm}></Route>
         </Routes>
       </BrowserRouter>
     </div>
