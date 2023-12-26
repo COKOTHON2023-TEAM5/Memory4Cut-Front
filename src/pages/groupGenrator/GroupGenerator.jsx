@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import copyImg from './imgSrc/copy.png';
 import './GroupGenerator.css';
 import photoForNav from './imgSrc/photoForNav.png';
 import fourCutForBody from './imgSrc/fourCutForBody.png';
 import CompleteGeneration from "./CompleteGeneration";
+import axios from "axios";
 const GroupGenerator = () => {
     const[text, setText] = useState("");
     const goPage = useNavigate();
@@ -20,9 +21,36 @@ const GroupGenerator = () => {
       };
     function submit(){
         if(text != "") {
+            axios.post('https://www.cokothon-team5.p-e.kr/group', {
+                "group_name": text,
+                "invite_code": data
+            })
+            .then(function (response) {
+                console.log(response);
+              })
+            .catch(function (error) {
+                console.log(error);
+            });
             setIsComplete(true);
         }
     }
+    const[data, setData] = useState();
+    useEffect(() => {
+        // Axios를 사용하여 백엔드 API 호출
+        axios.get('https://www.cokothon-team5.p-e.kr/group/code')
+          .then(response => {
+            // 성공적으로 데이터를 받아온 경우 상태 업데이트
+            setData(response.data.data.invite_code);
+          })
+          .catch(error => {
+            // 오류가 발생한 경우 오류 로그 출력
+            // console.error('Error fetching data:', error);
+          })
+          .finally(() => {
+            // 로딩 상태를 false로 변경
+            // setLoading(false);
+          });
+      }, []);
     return <div className="GroupGenerator">
         <div className="nav">
             <h1 style={{fontFamily: "Gowun Batang"}}>추억네컷</h1>
@@ -40,7 +68,7 @@ const GroupGenerator = () => {
                 <div className="InvitationCode">
                     <h3 style={{fontFamily: "Gowun Batang"}}>초대코드:</h3>
                     {/* 초대코드 랜덤 쓰레딩 */}
-                    <h3 style={{fontFamily: "Gowun Batang", backgroundColor: "#D9D9D9", marginLeft: "20px"}} id="code">Unknown</h3>
+                    <h3 style={{fontFamily: "Gowun Batang", backgroundColor: "#D9D9D9", marginLeft: "20px"}} id="code">{data}</h3>
                     <div className="hoverImg">
                         <img src={copyImg} style={{
                             marginLeft: "10px",
