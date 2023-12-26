@@ -1,0 +1,18 @@
+.fixed-size-image {
+  width: 120px; /* 원하는 크기로 조절 */
+  height: 120px; /* 원하는 크기로 조절 */
+}
+
+.flash {
+  animation: flashAnimation 1s;
+}
+
+@keyframes flashAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  0% {
+    opacity: 0;
+  }
+}
