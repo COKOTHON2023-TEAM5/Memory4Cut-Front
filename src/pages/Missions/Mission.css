@@ -7,9 +7,10 @@
   margin-bottom: 0px;
   margin-top: 0px;
   padding: 10px;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: x-large;
+  font-weight: bold;
 }
 
 .waiting-container {
@@ -40,6 +41,7 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  font-family: "Gowun Batang";
 }
 
 .changeButton {
@@ -51,7 +53,6 @@
 
 .question {
   margin-top: 100px;
-  width: 71%;
   margin-bottom: 5px;
 }
 
@@ -68,4 +69,13 @@
   height: 30px;
   background-color: #786ca6;
   border-radius: 20px;
+}
+
+.Button {
+  width: 50px;
+  border: none;
+  background-color: white;
+  font-family: "Gowun Batang";
+  font-weight: bold;
+  padding: 0;
 }
