@@ -8,18 +8,9 @@ import { useNavigate } from "react-router";
 function Mission() {
   const [data, setData] = useState(null);
   const [missionContent, setMissionContent] = useState("");
-  const [achieveStatus, setAchieveStatus] = useState("");
-  const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
-  const [message, setMessage] = useState("미공개 미션");
+  const [achieveStatus, setAchieveStatus] = useState(0);
+  const [missionType, setmissionType] = useState("");
 
-  const numbers = [1, 2, 3, 4];
-  const [number, setNumber] = useState(0);
-
-  const periods1 = ["과거", "현재", "미래"];
-  const [period1, setPeriod1] = useState("");
-
-  const periods2 = ["과거", "현재", "미래"];
-  const [period2, setPeriod2] = useState("");
   const longData = {
     longValue: 1,
   };
@@ -37,10 +28,10 @@ function Mission() {
         setData(response.data);
         setMissionContent(data.data.mission_content);
         setAchieveStatus(data.data.achieve_status);
+        setmissionType(data.data.missionType);
         console.log("hello");
       })
-      .catch(function (error) {
-      });
+      .catch(function (error) {});
   };
   const changeMessage = async () => {
     // const randomIndex = Math.floor(Math.random() * messages.length);
@@ -58,15 +49,6 @@ function Mission() {
       });
   };
 
-  const handlePeriodChange = (newPeriod) => {
-    setPeriod1(newPeriod);
-  };
-
-  const changePeriod = () => {
-    const randomIndex = Math.floor(Math.random() * periods2.length);
-    setPeriod2(periods2[randomIndex]);
-  };
-
   return (
     <div>
       <div className="nav">
@@ -76,18 +58,8 @@ function Mission() {
       <div className="center-container">
         <div style={{ width: "71%", marginTop: "100px" }}>
           <span className="question">어떤 미션을 수행하시겠습니까?</span>
-          <button onClick={() => handlePeriodChange("과거")} className="Button">
-            과거
-          </button>
-          /
-          <button onClick={() => handlePeriodChange("현재")} className="Button">
-            현재
-          </button>
-          /
-          <button onClick={() => handlePeriodChange("미래")} className="Button">
-            미래
-          </button>
-          <span style={{ fontSize: "x-large", fontWeight: "bold", float: "right" }}>#{period1}</span>
+          <button className="Button">과거</button>/<button className="Button">현재</button>/<button className="Button">미래</button>
+          <span style={{ fontSize: "x-large", fontWeight: "bold", float: "right" }}>#{missionType}</span>
         </div>
         <span className="mission-container">{missionContent}</span>
         <div
@@ -115,9 +87,13 @@ function Mission() {
           )}
           {achieveStatus !== 0 && <div className="change-container"></div>}
         </div>
-        <button onClick={() => {
-          movePage("/MissionImagesUpload?missionName=" + missionContent);
-        }}>미션 시작</button>
+        <button
+          onClick={() => {
+            movePage("/MissionImagesUpload?missionName=" + missionContent);
+          }}
+        >
+          미션 시작
+        </button>
       </div>
     </div>
   );
