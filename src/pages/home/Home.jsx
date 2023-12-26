@@ -4,11 +4,22 @@ import { useState } from "react";
 import './Home.css';
 import photoForNav from './imgSrc/photoForNav.png';
 import fourCutForBody from './imgSrc/fourCutForBody.png';
+import axios from "axios";
 const Home = () => {
     const goPage = useNavigate();
+    const moveNextPage = () => {
+        goPage('/Mission')
+    }
     const[modalOpen, setModalOpen] = useState(false);
-    const isThere = () => {
+    const isThere = (par) => {
         //db 비교
+        axios.get('https://www.cokothon-team5.p-e.kr/group')
+        .then(response => {
+            if(response.data.invite_code == par) {
+                moveNextPage();
+            }
+        })
+
         return true;
     }
     return <div className="Home">
