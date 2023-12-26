@@ -3,6 +3,7 @@ import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import { LuRefreshCcw } from "react-icons/lu";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 function Mission() {
   const [data, setData] = useState(null);
@@ -27,6 +28,7 @@ function Mission() {
   useEffect(() => {
     loadMission();
   }, []);
+  const movePage = useNavigate();
 
   const loadMission = async () => {
     axios
@@ -35,9 +37,9 @@ function Mission() {
         setData(response.data);
         setMissionContent(data.data.mission_content);
         setAchieveStatus(data.data.achieve_status);
+        console.log("hello");
       })
       .catch(function (error) {
-        console.log(error);
       });
   };
   const changeMessage = async () => {
@@ -113,6 +115,9 @@ function Mission() {
           )}
           {achieveStatus !== 0 && <div className="change-container"></div>}
         </div>
+        <button onClick={() => {
+          movePage("/MissionImagesUpload?missionName=" + missionContent);
+        }}>미션 시작</button>
       </div>
     </div>
   );
