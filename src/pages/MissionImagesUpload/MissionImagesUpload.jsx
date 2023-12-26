@@ -4,8 +4,11 @@ import AWS from "aws-sdk";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import "../../App.css";
+import { useNavigate } from "react-router-dom";
 
 const MissionImageUpload = () => {
+  const movePage = useNavigate();
+
   const [previewImage, setPreviewImage] = useState(null);
   const [previewName, setPreviewName] = useState("");
   const [completeBtn, setCompleteBtn] = useState(false);
@@ -106,7 +109,10 @@ const MissionImageUpload = () => {
         )}
         {completeBtn && (
           <div style={{ marginTop: "10px" }}>
-            <button style={{ fontFamily: "Gowun Batang" }} onClick={sendData}>
+            <button style={{ fontFamily: "Gowun Batang" }} onClick={() => {
+              sendData();
+              movePage("/Mission");
+              }}>
               추억네컷 제출
             </button>
           </div>
