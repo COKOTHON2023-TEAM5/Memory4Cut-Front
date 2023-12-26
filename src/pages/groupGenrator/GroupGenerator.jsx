@@ -27,7 +27,7 @@ const GroupGenerator = () => {
                 </div>
                 <button style={{fontFamily: "Gowun Batang"}}>확인</button>
             </div>
-            <div className="bodyRight" style={{display: "flex", marginLeft: "240px"}}>
+            <div className="bodyRight" style={{display: "flex", marginLeft: "300px"}}>
                     <img src={fourCutForBody}/>
             </div>
         </div>
