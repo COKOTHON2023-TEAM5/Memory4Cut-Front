@@ -11,9 +11,11 @@ import { saveAs } from "file-saver";
 import axios from "axios";
 
 const ResultForm = () => {
+  const groupId = 1;
+  const URL = `https://www.cokothon-team5.p-e.kr/group/${groupId}/photo`;
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/users", {
+      .get(URL, {
         params: {
           id: "1",
         },
