@@ -5,8 +5,10 @@ import { LuRefreshCcw } from "react-icons/lu";
 
 function Mission() {
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
-
   const [message, setMessage] = useState("Mission");
+
+  const numbers = [1, 2, 3, 4];
+  const [number, setNumber] = useState(3);
 
   const changeMessage = () => {
     const randomIndex = Math.floor(Math.random() * messages.length);
@@ -28,7 +30,14 @@ function Mission() {
           </button>
           새로운 미션
         </div>
-        <div className="waiting-container">다른 미션</div>
+        <div className="waiting-container">미공개 미션</div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          인증 현황{" "}
+          <div className="percentbar_out">
+            <div className="percentbar_in" style={{ width: `${25 * number}%` }}></div>
+          </div>
+          ({number}/4)
+        </div>
       </div>
     </div>
   );
