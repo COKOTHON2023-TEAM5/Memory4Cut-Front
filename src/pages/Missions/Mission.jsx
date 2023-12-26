@@ -1,5 +1,5 @@
-import { LuRefreshCcw } from "react-icons/lu";
 import { useState } from "react";
+import "./Mission.css";
 
 function Mission() {
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
@@ -12,16 +12,19 @@ function Mission() {
   };
 
   return (
-    <div className="center-container">
-      <div className="question">어떤 미션을 수행하시겠습니까?</div>
-      <div className="mission-container">{message}</div>
-      <div className="change-container">
-        <button onClick={changeMessage} className="changeButton">
-          <LuRefreshCcw />
-        </button>
-        새로운 미션
+    <div>
+      <Header />
+      <div className="center-container">
+        <div className="question">어떤 미션을 수행하시겠습니까?</div>
+        <div className="mission-container">{message}</div>
+        <div className="change-container">
+          <button onClick={changeMessage} className="changeButton">
+            .
+          </button>
+          새로운 미션
+        </div>
+        <div className="waiting-container">다른 미션</div>
       </div>
-      <div className="waiting-container">다른 미션</div>
     </div>
   );
 }

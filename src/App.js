@@ -12,11 +12,11 @@ function App() {
         <Routes>
           <Route path="/" Component={Home}></Route>
           <Route path="/GroupGenerator" Component={GroupGenerator}></Route>
-          <Route path="/Mission" Component={Mission}></Route>
           <Route
             path="/MissionImagesUpload"
             Component={MissionImagesUpload}
           ></Route>
+          <Route path="/Mission" Component={Mission}></Route>
         </Routes>
       </BrowserRouter>
     </div>
