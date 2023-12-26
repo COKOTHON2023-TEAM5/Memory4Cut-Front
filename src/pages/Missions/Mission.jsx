@@ -3,12 +3,11 @@ import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import { LuRefreshCcw } from "react-icons/lu";
 import axios from "axios";
-import MissionImageUpload from "../MissionImagesUpload/MissionImagesUpload";
-import { useNavigate } from "react-router";
 
 function Mission() {
   const [data, setData] = useState(null);
   const [missionContent, setMissionContent] = useState("");
+  const [achieveStatus, setAchieveStatus] = useState("");
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
   const [message, setMessage] = useState("미공개 미션");
 
@@ -28,7 +27,6 @@ function Mission() {
   useEffect(() => {
     loadMission();
   }, []);
-  const movePage = useNavigate();
 
   const loadMission = async () => {
     axios
@@ -36,6 +34,7 @@ function Mission() {
       .then(function (response) {
         setData(response.data);
         setMissionContent(data.data.mission_content);
+        setAchieveStatus(data.data.achieve_status);
       })
       .catch(function (error) {
         console.log(error);
@@ -46,9 +45,7 @@ function Mission() {
     // setMessage(messages[randomIndex]);
     // changePeriod();
     axios
-      .patch(
-        `https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`
-      )
+      .patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`)
       .then(function (response) {
         setData(response.data);
         console.log("dataaaaaaaa:", data.data.mission_content);
@@ -88,11 +85,7 @@ function Mission() {
           <button onClick={() => handlePeriodChange("미래")} className="Button">
             미래
           </button>
-          <span
-            style={{ fontSize: "x-large", fontWeight: "bold", float: "right" }}
-          >
-            #{period1}
-          </span>
+          <span style={{ fontSize: "x-large", fontWeight: "bold", float: "right" }}>#{period1}</span>
         </div>
         <span className="mission-container">{missionContent}</span>
         <div
@@ -107,13 +100,10 @@ function Mission() {
         >
           인증 현황{" "}
           <div className="percentbar_out">
-            <div
-              className="percentbar_in"
-              style={{ width: `${25 * number}%` }}
-            ></div>
+            <div className="percentbar_in" style={{ width: `${25 * achieveStatus}%` }}></div>
           </div>
-          ({number}/4)
-          {number === 0 && (
+          ({achieveStatus}/4)
+          {achieveStatus === 0 && (
             <div className="change-container">
               <button onClick={changeMessage} className="changeButton">
                 <LuRefreshCcw />
@@ -121,13 +111,8 @@ function Mission() {
               새로운 미션
             </div>
           )}
-          {number !== 0 && <div className="change-container"></div>}
+          {achieveStatus !== 0 && <div className="change-container"></div>}
         </div>
-        <button onClick={() => {
-          movePage("/MissionImagesUpload?missionName=" + missionContent);
-        }}>미션 시작</button>
-        {/* <div className="hashtag">#{period2}</div> */}
-        {/* <h2 className="waiting-container">{message}</h2> */}
       </div>
     </div>
   );
