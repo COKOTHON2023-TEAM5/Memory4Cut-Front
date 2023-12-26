@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Mission.css";
 import photoForNav from "./imgSrc/photoForNav.png";
 import { LuRefreshCcw } from "react-icons/lu";
+import axios from "axios";
 
 function Mission() {
   const messages = ["Mission1", "Mission2", "Mission3", "Mission4"];
@@ -15,11 +16,21 @@ function Mission() {
 
   const periods2 = ["과거", "현재", "미래"];
   const [period2, setPeriod2] = useState("");
-
+  const longData = {
+    longValue: 1,
+  }
+  const groupID = 23523423;
   const changeMessage = () => {
-    const randomIndex = Math.floor(Math.random() * messages.length);
-    setMessage(messages[randomIndex]);
-    changePeriod();
+    // const randomIndex = Math.floor(Math.random() * messages.length);
+    // setMessage(messages[randomIndex]);
+    // changePeriod();
+    axios.patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`)
+    .then(function(response){
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
 
   const handlePeriodChange = (newPeriod) => {
@@ -30,6 +41,7 @@ function Mission() {
     const randomIndex = Math.floor(Math.random() * periods2.length);
     setPeriod2(periods2[randomIndex]);
   };
+  const[missionContent, setMissionContent] = useState();
 
   return (
     <div>
@@ -53,7 +65,7 @@ function Mission() {
           </button>
           <span style={{ fontSize: "x-large", fontWeight: "bold", float: "right" }}>#{period1}</span>
         </div>
-        <span className="mission-container">Mission</span>
+        <span className="mission-container">{missionContent}</span>
         <div style={{ display: "flex", alignItems: "center", float: "right", width: "71%", justifyContent: "end", marginBottom: "60px" }}>
           인증 현황{" "}
           <div className="percentbar_out">
