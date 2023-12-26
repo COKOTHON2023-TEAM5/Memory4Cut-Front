@@ -38,7 +38,6 @@ const ResultForm = () => {
   const handleSave = () => {
     // 특정 div를 캡처하여 이미지로 변환
     setFlash(true);
-    setTimeout(() => {}, 400);
     divRef.current.style.transform = "rotate(0deg)";
     html2canvas(divRef.current).then((canvas) => {
       // Canvas를 Blob으로 변환
@@ -48,7 +47,7 @@ const ResultForm = () => {
         saveAs(blob, "screenshot.png");
         setTimeout(() => {
           setFlash(false);
-        }, 500);
+        }, 400);
       });
     });
   };

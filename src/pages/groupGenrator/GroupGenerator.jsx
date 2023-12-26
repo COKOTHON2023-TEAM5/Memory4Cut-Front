@@ -4,9 +4,11 @@ import copyImg from './imgSrc/copy.png';
 import './GroupGenerator.css';
 import photoForNav from './imgSrc/photoForNav.png';
 import fourCutForBody from './imgSrc/fourCutForBody.png';
+import CompleteGeneration from "./CompleteGeneration";
 const GroupGenerator = () => {
     const[text, setText] = useState("");
     const goPage = useNavigate();
+    const[isComplete, setIsComplete] = useState(false);
     const handleCopyClick = (textToCopy) => {
         navigator.clipboard.writeText(textToCopy)
           .then(() => {
@@ -17,13 +19,18 @@ const GroupGenerator = () => {
           });
       };
     function submit(){
-        // 정보 저장 후 페이지 이동
+        if(text != "") {
+            setIsComplete(true);
+        }
     }
     return <div className="GroupGenerator">
         <div className="nav">
             <h1 style={{fontFamily: "Gowun Batang"}}>추억네컷</h1>
             <img src={photoForNav}/>
         </div>
+        {(isComplete)?
+        <CompleteGeneration groupName={text} groupCode={document.getElementById("code").innerText} handleCopyClick={handleCopyClick} goPage={goPage}/>
+        :
         <div className="body_big" style={{display: "flex"}}>
             <div className="body_left">
                 <div className="GroupName">
@@ -42,12 +49,13 @@ const GroupGenerator = () => {
                         }} className="copyImg" onClick={() => handleCopyClick("초대코드: "+ document.getElementById("code").innerText)}/>
                     </div>
                 </div>
-                <button style={{fontFamily: "Gowun Batang"}}>확인</button>
+                <button style={{fontFamily: "Gowun Batang"}} onClick={submit}>확인</button>
             </div>
             <div className="bodyRight" style={{display: "flex", marginLeft: "300px"}}>
                     <img src={fourCutForBody}/>
             </div>
         </div>
+        }
     </div>
 }
 export default GroupGenerator;
