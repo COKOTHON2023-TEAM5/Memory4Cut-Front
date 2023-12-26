@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import photoForNav from "../../imgSrc/photoForNav.png";
+import { useSearchParams } from "react-router-dom";
 import "../../App.css";
 
 const MissionImageUpload = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [previewName, setPreviewName] = useState("");
-
+  const [serachParams, setSearchParams] = useSearchParams();
+  const missionNameString = serachParams.get("missionName");
   useEffect(() => {
     // 메시지 이벤트 리스너 등록
     window.addEventListener("message", handleMessage);
@@ -37,7 +39,7 @@ const MissionImageUpload = () => {
       </div>
 
       <div className="center-container" style={{ marginTop: "20px" }}>
-        <div className="mission-container">Mission: ....</div>
+        <div className="mission-container">미션: {missionNameString}</div>
         <div style={{ marginTop: "10px" }}>
           <button style={{ fontFamily: "Gowun Batang" }} onClick={openPopup}>
             이미지 업로드
