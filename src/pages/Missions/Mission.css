@@ -25,7 +25,7 @@
 }
 
 .change-container {
-  height: 20px;
+  height: 30px;
   width: 200px;
   border: none;
   display: flex;
@@ -41,28 +41,15 @@
   height: 100vh;
 }
 
-.Header {
-  width: 100%;
-  background-color: #b0a2c8;
-  margin-top: 0;
-  margin-bottom: 50px;
-  height: 150px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Georgia", serif;
-}
-
 .changeButton {
   border: none;
   background-color: white;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
 
 .question {
+  margin-top: 100px;
   width: 71%;
   margin-bottom: 5px;
 }
