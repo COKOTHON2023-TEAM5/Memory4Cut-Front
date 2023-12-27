@@ -21,15 +21,17 @@ function Mission() {
   }, []);
   const movePage = useNavigate();
 
-  const loadMission = async () => {
+  const loadMission = async() => {
     axios
       .patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission`)
       .then(function (response) {
         setData(response.data);
-        setMissionContent(data.data.mission_content);
-        setAchieveStatus(data.data.achieve_status);
-        setmissionType(data.data.missionType);
-        console.log("hello");
+        setMissionContent(response.data.data.mission_content);
+        // console.log(data);
+        // setMissionContent();
+        setAchieveStatus(response.data.data.achieve_status);
+        setmissionType(response.data.data.mission_tense_type);
+        console.log(response.data.data.mission_content + "fu");
       })
       .catch(function (error) {});
   };
@@ -41,13 +43,28 @@ function Mission() {
       .patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`)
       .then(function (response) {
         setData(response.data);
-        console.log("dataaaaaaaa:", data.data.mission_content);
+        console.log("dataaaaaaa:", data.data.mission_content);
         setMissionContent(data.data.mission_content);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+  const[temp, setTemp] = useState(true);
+  // if(temp){
+  //   axios.patch(`https://www.cokothon-team5.p-e.kr/group/${groupID}/mission/change`)
+  //   .then(function (response) {
+  //     setTimeout(() => {}, 1000);
+  //     setData(response.data);
+  //     console.log("dataaaaaaa:", data.data.mission_content);
+  //     setMissionContent("jell");
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  //   setTemp(false);
+  // }
+  // changeMessage();
 
   return (
     <div>
